@@ -8,7 +8,7 @@ watchers = ['files']
 include = ["*"]  # files to include in tracking
 exclude = [".info.pod", "pacman.bin/*"]  # files to exclude in tracking
 exclude_files = []  # files whose contents will be used to exclude other files from tracking
-exclude_binary_files = true  # whether to ignore binary files
+exclude_binary_files = false  # whether to ignore binary files
 language_mapping = {".map" = "Picotron Map", ".gfx" = "Picotron GFX", ".sfx" = "Picotron SFX", ".p64" = "Picotron Cartridge"} # custom language mapping
 
 [project]
