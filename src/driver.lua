@@ -1,9 +1,9 @@
---[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-07-15 20:06:32",revision=109]]
+--[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-07-16 08:25:21",revision=167]]
 function _init()
 	p = {
 		x = 16,
 		y = 16,
-		dir = -1,
+		dir =-1,
 		sprite = 2,
 		h_flip = false,
 		v_flip = true,
@@ -11,15 +11,15 @@ function _init()
 end
 
 function _update()
-	if btn(0) then dir = 0; p.sprite = 2; p.h_flip = true end -- left
-	if btn(1) then dir = 1; p.sprite = 2; p.h_flip = false end -- right
-	if btn(2) then dir = 2; p.sprite = 3; p.v_flip = false end -- up
-	if btn(3) then dir = 3; p.sprite = 3; p.v_flip = true end -- down
+	if (btnp(0)) p.dir = 0; p.sprite = 2; p.h_flip = true; -- left
+	if (btnp(1)) p.dir = 1; p.sprite = 2; p.h_flip = false; -- right
+	if (btnp(2)) p.dir = 2; p.sprite = 3; p.v_flip = false; -- up
+	if (btnp(3)) p.dir = 3; p.sprite = 3; p.v_flip = true; -- down
 
-	if dir == 0 and not fget(mget((p.x - 1)/16, p.y/16), 1) then p.x -= 1 end
-	if dir == 1 and not fget(mget((p.x + 16)/16, p.y/16), 1) then p.x += 1 end
-	if dir == 2 and not fget(mget(p.x/16, (p.y - 1)/16), 1) then p.y -= 1 end
-	if dir == 3 and not fget(mget(p.x/16, (p.y + 16)/16), 1) then p.y += 1 end
+	if (p.dir == 0 and not fget(mget(p.x/16, (p.y+8)/16), 1)) p.x -= 1
+	if (p.dir == 1 and not fget(mget((p.x+15) / 16, (p.y+8)/16), 1)) p.x += 1
+	if (p.dir == 2 and not fget(mget((p.x+8)  / 16, p.y/16), 1)) p.y -= 1
+	if (p.dir == 3 and not fget(mget((p.x+8)  / 16, (p.y+15)/16), 1)) p.y += 1
 end
 
 function _draw()
