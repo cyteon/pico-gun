@@ -1,12 +1,13 @@
---[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-07-16 08:25:21",revision=167]]
+--[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-07-16 11:41:52",revision=175]]
 function _init()
 	p = {
 		x = 16,
-		y = 16,
-		dir =-1,
+		y = 32,
+		dir = -1,
 		sprite = 2,
 		h_flip = false,
 		v_flip = true,
+		hp = 3
 	}
 end
 
@@ -26,5 +27,11 @@ function _draw()
 	cls()
 	map()
 	
+	-- player
 	spr(p.sprite, p.x, p.y, p.h_flip, p.v_flip)
+	
+	-- hearts
+	for i = p.hp, 1, -1 do
+		spr(4, (i-1)*16, 0)
+	end
 end
