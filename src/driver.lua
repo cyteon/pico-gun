@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-07-17 07:25:54",revision=202]]
+--[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-07-17 07:42:00",revision=208]]
 function _init()
 	p = {
 		x = 16,
@@ -42,7 +42,7 @@ function _draw()
 		spr(4, (i-1)*16, 0)
 	end
 	
-	print(p.ammo, 448, 5)
+	print(string.format("%02d", p.ammo), 456, 5)
 	spr(5, 464, 0)
 	
 	_bullets_draw()
