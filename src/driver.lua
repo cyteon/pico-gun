@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-07-20 11:12:48",revision=262]]
+--[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-07-20 17:06:27",revision=287]]
 function _init()
 	p = {
 		x = 16,
@@ -9,7 +9,8 @@ function _init()
 		h_flip = false,
 		v_flip = true,
 		hp = 3,
-		ammo = 10
+		ammo = 10,
+		score = 0
 	}
 	
 	bullets = {}
@@ -89,8 +90,10 @@ function _draw()
 		spr(4, (i-1)*16, 0)
 	end
 	
-	print(string.format("%02d", p.ammo), 456, 5)
-	spr(5, 464, 0)
+	print(string.format("%02d", p.ammo), 230, 5)
+	spr(5, 238, 0)
+	
+   print(string.format("%06d", p.score), 448, 5)
 	
 	_bullets_draw()
 end
