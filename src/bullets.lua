@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-17 06:51:51",modified="2025-07-17 07:27:03",revision=37]]
+--[[pod_format="raw",created="2025-07-17 06:51:51",modified="2025-07-17 07:50:27",revision=38]]
 function spawn_bullet(x, y, dir)
 	if (dir == 0) s = 7; h_flip = true; v_flip = false;
 	if (dir == 1) s = 7; h_flip = false; v_flip = false;
@@ -10,6 +10,7 @@ end
 
 function _bullets_update()
 	for bullet in all(bullets) do
+		-- despawn bullet on collision
 		if (bullet.dir == 0 and fget(mget(bullet.x \ 16, (bullet.y + 8) \ 16), 1)) del(bullets, bullet)
 		if (bullet.dir == 1 and fget(mget((bullet.x + 15) \ 16, (bullet.y + 8) \ 16), 1)) del(bullets, bullet)
 		if (bullet.dir == 2 and fget(mget((bullet.x + 8)  \ 16, bullet.y \ 16), 1)) del(bullets, bullet)
