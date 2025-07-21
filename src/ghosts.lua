@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-20 19:14:24",modified="2025-07-21 11:49:16",revision=81]]
+--[[pod_format="raw",created="2025-07-20 19:14:24",modified="2025-07-21 12:17:34",revision=83]]
 function _ghosts_init()
 	ghosts = {}
 	add(ghosts, { x = 208, y = 128, dir = 2, s = 8 })

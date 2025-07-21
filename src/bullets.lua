@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-17 06:51:51",modified="2025-07-20 19:18:10",revision=46]]
+--[[pod_format="raw",created="2025-07-17 06:51:51",modified="2025-07-21 12:51:16",revision=58]]
 function _bullets_init()
 	bullets = {}
 end
@@ -19,6 +19,14 @@ function _bullets_update()
 		if (bullet.dir == 1 and collides_right(bullet.x, bullet.y, flags.wall)) del(bullets, bullet)
 		if (bullet.dir == 2 and collides_up(bullet.x, bullet.y, flags.wall)) del(bullets, bullet)
 		if (bullet.dir == 3 and collides_down(bullet.x, bullet.y, flags.wall)) del(bullets, bullet)
+
+		for ghost in all(ghosts) do
+			if spr_collides(bullet.x + 8, bullet.y + 8, 4, 4, ghost.x, ghost.y, 16, 16) then
+				del(bullets, bullet)
+				del(ghosts, ghost)
+				p.score += 100
+			end
+		end
 
 		if (bullet.dir == 0) bullet.x -= 2
 		if (bullet.dir == 1) bullet.x += 2
