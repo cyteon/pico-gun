@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-20 19:14:24",modified="2025-07-21 13:16:04",revision=90]]
+--[[pod_format="raw",created="2025-07-20 19:14:24",modified="2025-07-21 18:35:30",revision=92]]
 function _ghosts_init()
 	ghosts = {}
 	add(ghosts, { x = 208, y = 128, dir = 2, s = 8 })
@@ -16,7 +16,7 @@ function generate_dir_without(x, y, excl)
 		return 0
 	elseif dir == 1 and not collides_right(x, y, flags.wall) then
 		return 1
-	elseif dir == 2 and not collides_up(x, y, flags.wall) then
+	elseif dir == 2 and (not collides_up(x, y, flags.wall) or collides_up(x, y, flags.wall_allow_up)) then
 		return 2
 	elseif dir == 3 and not collides_down(x, y, flags.wall) then
 		return 3
@@ -29,7 +29,10 @@ function _ghosts_update()
 	for ghost in all(ghosts) do
 		local collision_left = collides_left(ghost.x, ghost.y, flags.wall)
 		local collision_right = collides_right(ghost.x, ghost.y, flags.wall)
-		local collision_up = collides_up(ghost.x, ghost.y, flags.wall)
+		local collision_up = (
+			collides_up(ghost.x, ghost.y, flags.wall) and 
+			not collides_up(ghost.x, ghost.y, flags.wall_allow_up)
+		)
 		local collision_down = collides_down(ghost.x, ghost.y, flags.wall)
 		
 		if ghost.dir == 0 and collision_left then

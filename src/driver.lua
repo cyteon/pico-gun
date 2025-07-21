@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-07-21 18:24:22",revision=305]]
+--[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-07-21 18:51:44",revision=311]]
 function _init()
 	p = {
 		x = 16,
@@ -15,6 +15,7 @@ function _init()
 	
 	_bullets_init()
 	_ghosts_init()
+	_dots_init()
 end
 
 function _update()
@@ -79,6 +80,7 @@ function _update()
 	
 	_bullets_update()
 	_ghosts_update()
+	_dots_update()
 end
 
 function _draw()
@@ -100,4 +102,5 @@ function _draw()
 	
 	_bullets_draw()
 	_ghosts_draw()
+	_dots_draw()
 end
