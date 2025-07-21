@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-15 17:18:57",modified="2025-07-21 18:43:36",revision=18]]
+--[[pod_format="raw",created="2025-07-15 17:18:57",modified="2025-07-21 19:06:07",revision=19]]
 include("src/driver.lua")
 include("src/bullets.lua")
 include("src/utils.lua")
@@ -12,3 +12,5 @@ flags = {
 	ghost = 3,
 	bullet = 4
 }
+
+freeze = false

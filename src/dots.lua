@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-21 18:41:11",modified="2025-07-21 18:55:28",revision=36]]
+--[[pod_format="raw",created="2025-07-21 18:41:11",modified="2025-07-21 19:05:24",revision=37]]
 function _dots_init()
 	dots = {}
 	
@@ -16,7 +16,6 @@ end
 function _dots_update()
 	for dot in all(dots) do
 		if spr_collides(dot.x + 6, dot.y + 6, 2, 2, p.x + 1, p.y + 1, 15, 15) then
-		
 			if dot.is_bullet then p.ammo += 1
 			else p.score += 10
 			end

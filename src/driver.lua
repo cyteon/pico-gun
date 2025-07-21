@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-07-21 18:51:44",revision=311]]
+--[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-07-21 19:47:27",revision=325]]
 function _init()
 	p = {
 		x = 16,
@@ -19,6 +19,19 @@ function _init()
 end
 
 function _update()
+	if p.hp <= 0 and not freeze then
+		reset_time = time() + 2
+		freeze = true
+	end
+	
+	if freeze then
+		if time() >= reset_time then
+			freeze = false
+			_init()
+		end
+		return
+	end
+
 	if btnp(0) and not collides_left(p.x, p.y, flags.wall) then -- left
 		p.dir = 0
 		p.sprite = 2

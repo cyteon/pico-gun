@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-20 19:14:24",modified="2025-07-21 18:35:30",revision=92]]
+--[[pod_format="raw",created="2025-07-20 19:14:24",modified="2025-07-21 19:06:20",revision=93]]
 function _ghosts_init()
 	ghosts = {}
 	add(ghosts, { x = 208, y = 128, dir = 2, s = 8 })
@@ -26,6 +26,8 @@ function generate_dir_without(x, y, excl)
 end
 
 function _ghosts_update()
+	if (freeze) return
+
 	for ghost in all(ghosts) do
 		local collision_left = collides_left(ghost.x, ghost.y, flags.wall)
 		local collision_right = collides_right(ghost.x, ghost.y, flags.wall)
