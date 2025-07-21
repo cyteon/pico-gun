@@ -1,8 +1,8 @@
---[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-07-21 11:01:33",revision=304]]
+--[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-07-21 18:24:22",revision=305]]
 function _init()
 	p = {
 		x = 16,
-		y = 32,
+		y = 240,
 		dir = -1,
 		last_dir = -1,
 		sprite = 2,

@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-20 19:14:24",modified="2025-07-21 12:17:34",revision=83]]
+--[[pod_format="raw",created="2025-07-20 19:14:24",modified="2025-07-21 13:16:04",revision=90]]
 function _ghosts_init()
 	ghosts = {}
 	add(ghosts, { x = 208, y = 128, dir = 2, s = 8 })
@@ -68,6 +68,15 @@ function _ghosts_update()
 		if (ghost.dir == 1) ghost.x += 1
 		if (ghost.dir == 2) ghost.y -= 1
 		if (ghost.dir == 3) ghost.y += 1
+		
+		if spr_collides(ghost.x, ghost.y, 16, 16, p.x, p.y, 16, 16) then
+			if not ghost.recent_collision then
+				p.hp -= 1
+				ghost.recent_collision = true
+			end
+		else
+			ghost.recent_collision = false
+		end
 	end
 end
 
