@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-21 18:41:11",modified="2025-07-21 19:05:24",revision=37]]
+--[[pod_format="raw",created="2025-07-21 18:41:11",modified="2025-07-22 07:44:48",revision=38]]
 function _dots_init()
 	dots = {}
 	
@@ -6,7 +6,7 @@ function _dots_init()
 		for ix=28,1,-1 do
 		
 			if not fget(mget(ix, iy), flags.no_dots) then
-				local is_bullet = math.random(1,10) == 1
+				local is_bullet = math.random(1,20) == 1
 				add(dots, { x = ix * 16, y = iy * 16, is_bullet = is_bullet })
 			end
 		end

@@ -1,6 +1,16 @@
---[[pod_format="raw",created="2025-07-20 19:14:24",modified="2025-07-21 19:06:20",revision=93]]
+--[[pod_format="raw",created="2025-07-20 19:14:24",modified="2025-07-22 08:10:15",revision=111]]
 function _ghosts_init()
 	ghosts = {}
+	
+	ghost_spawn_locations = {
+		{ x = 208, y = 128 },
+		{ x = 224, y = 128 },
+		{ x = 240, y = 128 },
+		{ x = 256, y = 128 },
+	}
+
+	ghost_unused_sprites = {}
+
 	add(ghosts, { x = 208, y = 128, dir = 2, s = 8 })
 	add(ghosts, { x = 224, y = 128, dir = 2, s = 9 })
 	add(ghosts, { x = 240, y = 128, dir = 2, s = 10 })
@@ -82,6 +92,14 @@ function _ghosts_update()
 		else
 			ghost.recent_collision = false
 		end
+	end
+	
+	-- 1% to spawn a ghost each tick
+	-- i found that this number makes a good and varying 	delay until a new ghost spawns
+	if math.random(1,100) == 1 and #ghosts < 4 then
+		local l = ghost_spawn_locations[math.random(#ghost_spawn_locations)]
+		add(ghosts, { x = l.x, y = l.y, dir = 2, s = ghost_unused_sprites[1]})
+		del(ghost_unused_sprites, ghost_unused_sprites[1])
 	end
 end
 

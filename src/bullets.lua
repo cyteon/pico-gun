@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-17 06:51:51",modified="2025-07-21 12:51:16",revision=58]]
+--[[pod_format="raw",created="2025-07-17 06:51:51",modified="2025-07-22 08:07:24",revision=60]]
 function _bullets_init()
 	bullets = {}
 end
@@ -23,7 +23,10 @@ function _bullets_update()
 		for ghost in all(ghosts) do
 			if spr_collides(bullet.x + 8, bullet.y + 8, 4, 4, ghost.x, ghost.y, 16, 16) then
 				del(bullets, bullet)
+				
 				del(ghosts, ghost)
+				add(ghost_unused_sprites, ghost.s)
+			
 				p.score += 100
 			end
 		end
