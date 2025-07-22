@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-17 06:51:51",modified="2025-07-22 16:24:01",revision=61]]
+--[[pod_format="raw",created="2025-07-17 06:51:51",modified="2025-07-22 16:49:16",revision=62]]
 function _bullets_init()
 	bullets = {}
 end
@@ -25,7 +25,7 @@ function _bullets_update()
 				del(bullets, bullet)
 				
 				del(ghosts, ghost)
-				add(ghost_unused_sprites, ghost.s)
+				add(ghost_unused_colors, ghost.c)
 			
 				p.score += 100
 			end

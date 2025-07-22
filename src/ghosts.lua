@@ -1,6 +1,11 @@
---[[pod_format="raw",created="2025-07-20 19:14:24",modified="2025-07-22 16:18:40",revision=112]]
+--[[pod_format="raw",created="2025-07-20 19:14:24",modified="2025-07-22 17:01:07",revision=134]]
 function _ghosts_init()
-	ghosts = {}
+	ghosts = {
+		{ x = 208, y = 128, dir = 2, s = 17, c = 8  },
+		{ x = 224, y = 128, dir = 2, s = 17, c = 14 },
+		{ x = 240, y = 128, dir = 2, s = 17, c = 10 },
+		{ x = 256, y = 128, dir = 2, s = 17, c = 16 }
+	}
 	
 	ghost_spawn_locations = {
 		{ x = 208, y = 128 },
@@ -9,12 +14,7 @@ function _ghosts_init()
 		{ x = 256, y = 128 },
 	}
 
-	ghost_unused_sprites = {}
-
-	add(ghosts, { x = 208, y = 128, dir = 2, s = 16 })
-	add(ghosts, { x = 224, y = 128, dir = 2, s = 17 })
-	add(ghosts, { x = 240, y = 128, dir = 2, s = 18 })
-	add(ghosts, { x = 256, y = 128, dir = 2, s = 19 })
+	ghost_unused_colors = {}
 end
 
 function generate_dir_without(x, y, excl)
@@ -79,10 +79,10 @@ function _ghosts_update()
 			end
 		end
 		
-		if (ghost.dir == 0) ghost.x -= 1
-		if (ghost.dir == 1) ghost.x += 1
-		if (ghost.dir == 2) ghost.y -= 1
-		if (ghost.dir == 3) ghost.y += 1
+		if (ghost.dir == 0) ghost.x -= 1; ghost.s = 16; ghost.hf = true
+		if (ghost.dir == 1) ghost.x += 1; ghost.s = 16; ghost.hf = false
+		if (ghost.dir == 2) ghost.y -= 1; ghost.s = 17;
+		if (ghost.dir == 3) ghost.y += 1; ghost.s = 18;
 		
 		if spr_collides(ghost.x, ghost.y, 16, 16, p.x, p.y, 16, 16) then
 			if not ghost.recent_collision then
@@ -98,13 +98,15 @@ function _ghosts_update()
 	-- i found that this number makes a good and varying 	delay until a new ghost spawns
 	if math.random(1,100) == 1 and #ghosts < 4 then
 		local l = ghost_spawn_locations[math.random(#ghost_spawn_locations)]
-		add(ghosts, { x = l.x, y = l.y, dir = 2, s = ghost_unused_sprites[1]})
-		del(ghost_unused_sprites, ghost_unused_sprites[1])
+		add(ghosts, { x = l.x, y = l.y, dir = 2, s = 17, c = ghost_unused_colors[1]})
+		del(ghost_unused_colors, ghost_unused_colors[1])
 	end
 end
 
 function _ghosts_draw()
 	for ghost in all(ghosts) do
-		spr(ghost.s, ghost.x, ghost.y)
+		pal(8, ghost.c)
+		spr(ghost.s, ghost.x, ghost.y, ghost.hf)
+		pal()
 	end
 end
