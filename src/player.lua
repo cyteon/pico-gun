@@ -1,5 +1,5 @@
---[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-07-21 19:47:27",revision=325]]
-function _init()
+--[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-07-22 15:56:53",revision=332]]
+function _player_init()
 	p = {
 		x = 16,
 		y = 240,
@@ -12,16 +12,13 @@ function _init()
 		ammo = 10,
 		score = 0
 	}
-	
-	_bullets_init()
-	_ghosts_init()
-	_dots_init()
 end
 
-function _update()
+function _player_update()
 	if p.hp <= 0 and not freeze then
 		reset_time = time() + 2
 		freeze = true
+		store("/appdata/pacman_hi.pod", p.score)
 	end
 	
 	if freeze then
@@ -90,17 +87,9 @@ function _update()
 	p.last_dir = p.dir
 
 	if (btnp(5) and p.ammo > 0) spawn_bullet(p.x, p.y, p.dir); p.ammo -= 1
-	
-	_bullets_update()
-	_ghosts_update()
-	_dots_update()
 end
 
-function _draw()
-	cls()
-	map()
-	
-	-- player
+function _player_draw()
 	spr(p.sprite, p.x, p.y, p.h_flip, p.v_flip)
 	
 	-- hearts
@@ -112,8 +101,4 @@ function _draw()
 	spr(5, 238, 0)
 	
 	print(string.format("%06d", p.score), 448, 5)
-	
-	_bullets_draw()
-	_ghosts_draw()
-	_dots_draw()
 end
