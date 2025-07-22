@@ -1,13 +1,13 @@
---[[pod_format="raw",created="2025-07-17 06:51:51",modified="2025-07-22 08:07:24",revision=60]]
+--[[pod_format="raw",created="2025-07-17 06:51:51",modified="2025-07-22 16:24:01",revision=61]]
 function _bullets_init()
 	bullets = {}
 end
 
 function spawn_bullet(x, y, dir)
-	if (dir == 0) s = 7; h_flip = true; v_flip = false;
-	if (dir == 1) s = 7; h_flip = false; v_flip = false;
-	if (dir == 2) s = 6; h_flip = false; v_flip = false;
-	if (dir == 3) s = 6; h_flip = false; v_flip = true;
+	if (dir == 0) s = 27; h_flip = true; v_flip = false;
+	if (dir == 1) s = 27; h_flip = false; v_flip = false;
+	if (dir == 2) s = 26; h_flip = false; v_flip = false;
+	if (dir == 3) s = 26; h_flip = false; v_flip = true;
 
 	add(bullets, { x = x, y = y, dir = dir, s = s, h_flip = h_flip, v_flip = v_flip })
 end

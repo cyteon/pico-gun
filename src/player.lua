@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-07-22 15:56:53",revision=332]]
+--[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-07-22 16:21:50",revision=334]]
 function _player_init()
 	p = {
 		x = 16,
@@ -94,11 +94,11 @@ function _player_draw()
 	
 	-- hearts
 	for i = p.hp, 1, -1 do
-		spr(4, (i-1)*16, 0)
+		spr(24, (i-1)*16, 0)
 	end
 	
 	print(string.format("%02d", p.ammo), 230, 5)
-	spr(5, 238, 0)
+	spr(25, 238, 0)
 	
 	print(string.format("%06d", p.score), 448, 5)
 end

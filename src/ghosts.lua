@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-20 19:14:24",modified="2025-07-22 08:10:15",revision=111]]
+--[[pod_format="raw",created="2025-07-20 19:14:24",modified="2025-07-22 16:18:40",revision=112]]
 function _ghosts_init()
 	ghosts = {}
 	
@@ -11,10 +11,10 @@ function _ghosts_init()
 
 	ghost_unused_sprites = {}
 
-	add(ghosts, { x = 208, y = 128, dir = 2, s = 8 })
-	add(ghosts, { x = 224, y = 128, dir = 2, s = 9 })
-	add(ghosts, { x = 240, y = 128, dir = 2, s = 10 })
-	add(ghosts, { x = 256, y = 128, dir = 2, s = 11 })
+	add(ghosts, { x = 208, y = 128, dir = 2, s = 16 })
+	add(ghosts, { x = 224, y = 128, dir = 2, s = 17 })
+	add(ghosts, { x = 240, y = 128, dir = 2, s = 18 })
+	add(ghosts, { x = 256, y = 128, dir = 2, s = 19 })
 end
 
 function generate_dir_without(x, y, excl)
