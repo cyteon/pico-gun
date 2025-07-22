@@ -1,13 +1,13 @@
---[[pod_format="raw",created="2025-07-21 18:41:11",modified="2025-07-22 07:44:48",revision=38]]
+--[[pod_format="raw",created="2025-07-21 18:41:11",modified="2025-07-22 08:16:41",revision=40]]
 function _dots_init()
 	dots = {}
 	
-	for iy=15,2,-1 do 
-		for ix=28,1,-1 do
+	for ty=15,2,-1 do 
+		for tx=28,1,-1 do
 		
-			if not fget(mget(ix, iy), flags.no_dots) then
+			if not fget(mget(tx, ty), flags.no_dots) then
 				local is_bullet = math.random(1,20) == 1
-				add(dots, { x = ix * 16, y = iy * 16, is_bullet = is_bullet })
+				add(dots, { x = tx * 16, y = ty * 16, is_bullet = is_bullet })
 			end
 		end
 	end
@@ -21,6 +21,16 @@ function _dots_update()
 			end
 		
 			del(dots, dot)
+		end
+	end
+	
+	if math.random(1,20) == 1 then
+		local ty = math.random(2,15)
+		local tx = math.random(1,28)	
+
+		if not fget(mget(tx, ty), flags.no_dots) then
+			local is_bullet = math.random(1,20) == 1
+			add(dots, { x = tx * 16, y = ty * 16, is_bullet = is_bullet })
 		end
 	end
 end
