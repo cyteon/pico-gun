@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-15 17:18:57",modified="2025-07-22 15:40:13",revision=40]]
+--[[pod_format="raw",created="2025-07-15 17:18:57",modified="2025-07-22 17:17:07",revision=41]]
 include("src/player.lua")
 include("src/bullets.lua")
 include("src/utils.lua")
@@ -29,9 +29,9 @@ function _update()
 	if (menu) _gui_update(); return	
 
 	_player_update()
+	_dots_update()
 	_bullets_update()
 	_ghosts_update()
-	_dots_update()
 end
 
 function _draw()
@@ -42,7 +42,7 @@ function _draw()
 	map()
 	
 	_player_draw()
+	_dots_draw()
 	_bullets_draw()
 	_ghosts_draw()
-	_dots_draw()
 end
