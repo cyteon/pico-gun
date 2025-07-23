@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-07-23 11:13:46",revision=340]]
+--[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-07-23 11:53:18",revision=346]]
 function _player_init()
 	p = {
 		x = 16,
@@ -10,7 +10,8 @@ function _player_init()
 		v_flip = true,
 		hp = 3,
 		ammo = 10,
-		score = 0
+		score = 0,
+		can_shoot_at = 0
 	}
 end
 
@@ -86,7 +87,12 @@ function _player_update()
 	
 	p.last_dir = p.dir
 
-	if (btnp(5) and p.ammo > 0) spawn_bullet(p.x, p.y, p.dir); p.ammo -= 1
+	if btnp(5) and p.ammo > 0 and p.can_shoot_at < time() then
+		spawn_bullet(p.x, p.y, p.dir)
+		p.ammo -= 1
+		
+		p.can_shoot_at = time() + 0.5
+	end
 end
 
 function _player_draw()

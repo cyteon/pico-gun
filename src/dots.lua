@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-21 18:41:11",modified="2025-07-23 11:15:42",revision=63]]
+--[[pod_format="raw",created="2025-07-21 18:41:11",modified="2025-07-23 11:29:08",revision=64]]
 function _dots_init()
 	dots = {}
 	
@@ -24,17 +24,6 @@ function _dots_update()
 			end
 		
 			del(dots, dot)
-		end
-	end
-	
-	if math.random(1,20) == 1 then -- 5% chance to do anything
-		local ty = math.random(2,15)
-		local tx = math.random(1,28)	
-
-		if not fget(mget(tx, ty), flags.no_dots) then
-			local is_bullet = math.random(1,20) == 1 -- 5% chance
-			local is_heart = math.random(1,100) == 1 and not is_bullet -- <1% chance	
-			add(dots, { x = tx * 16, y = ty * 16, is_bullet = is_bullet, is_heart = is_heart})
 		end
 	end
 end
