@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-20 19:14:24",modified="2025-07-23 11:15:15",revision=249]]
+--[[pod_format="raw",created="2025-07-20 19:14:24",modified="2025-07-23 12:09:20",revision=261]]
 function _ghosts_init()
 	ghost_spawn_locations = {
 		{ x = 224, y = 128 },
@@ -11,8 +11,9 @@ function _ghosts_init()
 	pinky = { x = 240, y = 128, dir = 2, s = 17, c = 14 }
 	inky = { x = 240, y = 128, dir = 2, s = 17, c = 16 }
 	
-	initial_scatter = true
-	initial_scatter_end = time() + 5
+	scatter_mode = true
+	scatter_end = time() + 7
+	next_scatter = 0
 end
 
 function move_toward(ghost, tx, ty)
@@ -61,12 +62,18 @@ end
 function _ghosts_update()
 	if (freeze) return
 	
-	if (initial_scatter and time() > initial_scatter_end) initial_scatter = false
+	if scatter_mode and time() > scatter_end then 
+		scatter_mode = false
+		next_scatter = time() + 20
+	elseif not scatter_mode and time() > next_scatter then
+		scatter_mode = true
+		scatter_end = time() + 7
+	end
 
 	-- blinky	
 
 	if blinky then
-		if initial_scatter then
+		if scatter_mode then
 			move_toward(blinky, 464, 0)
 		else
 			move_toward(blinky, p.x, p.y)
@@ -106,7 +113,7 @@ function _ghosts_update()
 	-- clyde
 	
 	if clyde then
-		if initial_scatter then
+		if scatter_mode then
 			move_toward(clyde, 0, 270)
 		else
 			local dist = sqrt((p.x - clyde.x)^2 + (p.y - clyde.y)^2)
@@ -152,7 +159,7 @@ function _ghosts_update()
 	-- pinky
 	
 	if pinky then
-		if initial_scatter then
+		if scatter_mode then
 			move_toward(pinky, 0, 0)
 		else
 			local tx = p.x
@@ -201,7 +208,7 @@ function _ghosts_update()
 	-- inky
 	
 	if inky then
-		if initial_scatter or not blinky then
+		if scatter_mode or not blinky then
 			move_toward(inky, 480, 270)
 		else
 			local ax = p.x
