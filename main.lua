@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-15 17:18:57",modified="2025-07-22 17:17:07",revision=41]]
+--[[pod_format="raw",created="2025-07-15 17:18:57",modified="2025-07-25 08:10:10",revision=45]]
 include("src/player.lua")
 include("src/bullets.lua")
 include("src/utils.lua")
@@ -17,6 +17,7 @@ function _init()
 
 	freeze = false
 	menu = true
+	showInfo = false
 
 	_gui_init()
 	_player_init()
