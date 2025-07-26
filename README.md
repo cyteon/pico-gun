@@ -1,4 +1,5 @@
 # (name tbd)
+The game folder contains the picotron files, while the backend folder contains the leaderboard backend code.
 
 ## Developing Locally
 1. Launch picotron and open it's terminal
