@@ -1,10 +1,13 @@
---[[pod_format="raw",created="2025-07-15 17:18:57",modified="2025-07-25 08:10:10",revision=45]]
+--[[pod_format="raw",created="2025-07-15 17:18:57",modified="2025-07-25 12:19:39",revision=48]]
 include("src/player.lua")
 include("src/bullets.lua")
 include("src/utils.lua")
 include("src/ghosts.lua")
 include("src/dots.lua")
 include("src/gui.lua")
+
+-- putting this here so its not affected by _init()
+gameOver = false
 
 function _init()
 	flags = {
@@ -20,10 +23,6 @@ function _init()
 	showInfo = false
 
 	_gui_init()
-	_player_init()
-	_bullets_init()
-	_ghosts_init()
-	_dots_init()
 end
 
 function _update()

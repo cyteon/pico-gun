@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-07-23 11:53:18",revision=346]]
+--[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-07-26 11:48:19",revision=352]]
 function _player_init()
 	p = {
 		x = 16,
@@ -17,14 +17,19 @@ end
 
 function _player_update()
 	if p.hp <= 0 and not freeze then
-		reset_time = time() + 2
+		reset_time = time() + 1
 		freeze = true
+		
+		-- despawn all ghosts
+		blinky = nil; clyde = nil; pinky = nil; inky = nil
+		
 		store("/appdata/pacman_hi.pod", p.score)
 	end
 	
 	if freeze then
 		if time() >= reset_time then
 			freeze = false
+			gameOver = true
 			_init()
 		end
 		return

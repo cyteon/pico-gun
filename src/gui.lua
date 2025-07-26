@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-22 08:22:49",modified="2025-07-25 11:35:34",revision=191]]
+--[[pod_format="raw",created="2025-07-22 08:22:49",modified="2025-07-26 11:15:32",revision=194]]
 function _gui_init()
 	gui = create_gui()
 	
@@ -15,7 +15,13 @@ function _gui_init()
 			print("Start Game", 50, 9, 7)
 		end,
 		click = function (self)
+			_player_init()
+			_bullets_init()
+			_ghosts_init()
+			_dots_init()	
+	
 			menu = false
+			gameOver = false
 		end
 	})
 	
