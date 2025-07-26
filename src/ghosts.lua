@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-20 19:14:24",modified="2025-07-23 12:09:20",revision=261]]
+--[[pod_format="raw",created="2025-07-20 19:14:24",modified="2025-07-26 13:14:42",revision=275]]
 function _ghosts_init()
 	ghost_spawn_locations = {
 		{ x = 224, y = 128 },
@@ -10,6 +10,11 @@ function _ghosts_init()
 	clyde = { x = 224, y = 128, dir = 2, s = 17, c = 10 }
 	pinky = { x = 240, y = 128, dir = 2, s = 17, c = 14 }
 	inky = { x = 240, y = 128, dir = 2, s = 17, c = 16 }
+	
+	blinky_respawn_at = 0
+	clyde_respawn_at = 0
+	clyde_respawn_at = 0
+	inky_respawn_at = 0
 	
 	scatter_mode = true
 	scatter_end = time() + 7
@@ -96,7 +101,9 @@ function _ghosts_update()
 		for bullet in all(bullets) do
 			if spr_collides(bullet.x + 8, bullet.y + 8, 4, 4, blinky.x, blinky.y, 16, 16) then
 				del(bullets, bullet)
+				
 				blinky = nil
+				blinky_respawn_at = time() + 2
 			
 				p.score += 100
 				
@@ -104,7 +111,7 @@ function _ghosts_update()
 			end
 		end
 	else
-		if math.random(1,100) == 1 then -- 1% chance to respawn each tick
+		if blinky_respawn_at < time() then
 			local loc = ghost_spawn_locations[math.random(#ghost_spawn_locations)]
 			blinky = { x = loc.x, y = loc.y, dir = 2, s = 17, c = 8 }
 		end
@@ -142,7 +149,9 @@ function _ghosts_update()
 		for bullet in all(bullets) do
 			if spr_collides(bullet.x + 8, bullet.y + 8, 4, 4, clyde.x, clyde.y, 16, 16) then
 				del(bullets, bullet)
+				
 				clyde = nil
+				clyde_respawn_at = time() + 2
 			
 				p.score += 100
 				
@@ -150,7 +159,7 @@ function _ghosts_update()
 			end
 		end
 	else
-		if math.random(1,100) == 1 then -- 1% chance to respawn each tick
+		if clyde_respawn_at < time() then
 			local loc = ghost_spawn_locations[math.random(#ghost_spawn_locations)]
 			clyde = { x = loc.x, y = loc.y, dir = 2, s = 17, c = 10 }
 		end
@@ -191,7 +200,9 @@ function _ghosts_update()
 		for bullet in all(bullets) do
 			if spr_collides(bullet.x + 8, bullet.y + 8, 4, 4, pinky.x, pinky.y, 16, 16) then
 				del(bullets, bullet)
+				
 				pinky = nil
+				pinky_respawn_at = time() + 2	
 			
 				p.score += 100
 				
@@ -199,7 +210,7 @@ function _ghosts_update()
 			end
 		end
 	else
-		if math.random(1,100) == 1 then -- 1% chance to respawn each tick
+		if pinky_respawn_at < time() then
 			local loc = ghost_spawn_locations[math.random(#ghost_spawn_locations)]
 			pinky = { x = loc.x, y = loc.y, dir = 2, s = 17, c = 14 }
 		end
@@ -246,7 +257,9 @@ function _ghosts_update()
 		for bullet in all(bullets) do
 			if spr_collides(bullet.x + 8, bullet.y + 8, 4, 4, inky.x, inky.y, 16, 16) then
 				del(bullets, bullet)
+				
 				inky = nil
+				inky_respawn_at = time() + 2
 			
 				p.score += 100
 				
@@ -254,7 +267,7 @@ function _ghosts_update()
 			end
 		end
 	else
-		if math.random(1,100) == 1 then -- 1% chance to respawn each tick
+		if inky_respawn_at < time() then
 			local loc = ghost_spawn_locations[math.random(#ghost_spawn_locations)]
 			inky = { x = loc.x, y = loc.y, dir = 2, s = 17, c = 16 }
 		end
