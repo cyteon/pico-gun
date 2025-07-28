@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-15 17:18:57",modified="2025-07-25 12:19:39",revision=48]]
+--[[pod_format="raw",created="2025-07-15 17:18:57",modified="2025-07-27 10:06:37",revision=51]]
 include("src/player.lua")
 include("src/bullets.lua")
 include("src/utils.lua")
@@ -8,6 +8,7 @@ include("src/gui.lua")
 
 -- putting this here so its not affected by _init()
 gameOver = false
+apiUrl = "http://localhost:3000"
 
 function _init()
 	flags = {
@@ -20,7 +21,6 @@ function _init()
 
 	freeze = false
 	menu = true
-	showInfo = false
 
 	_gui_init()
 end
