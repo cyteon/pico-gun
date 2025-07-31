@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-15 17:18:57",modified="2025-07-30 19:59:17",revision=82]]
+--[[pod_format="raw",created="2025-07-15 17:18:57",modified="2025-07-31 11:33:16",revision=84]]
 include("src/player.lua")
 include("src/bullets.lua")
 include("src/utils.lua")
@@ -8,7 +8,7 @@ include("src/gui.lua")
 include("sys/gui_ed.lua")
 
 -- putting this here so its not affected by _init()
-game_over = true
+game_over = false
 api_url = "http://localhost:3000"
 
 flags = {
@@ -39,8 +39,8 @@ function _draw()
 	cls()
 	
 	-- refrence so i can center shit
-	rectfill(0, 135, 480, 135, 8)
-	rectfill(240, 0, 240, 270, 8)
+	-- rectfill(0, 135, 480, 135, 8)
+	-- rectfill(240, 0, 240, 270, 8)
 	
 	if (menu) _gui_draw(); return	
 
