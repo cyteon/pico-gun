@@ -1,8 +1,9 @@
---[[pod_format="raw",created="2025-07-22 08:22:49",modified="2025-07-31 11:02:47",revision=556]]
+--[[pod_format="raw",created="2025-07-22 08:22:49",modified="2025-07-31 11:23:22",revision=580]]
 function _gui_init()
 	show_lb = false
 	lb_entries = {}
 	scroll_offset = 0
+	saved_lb_entry = false
 
 	show_info = false
 
@@ -111,7 +112,12 @@ function _gui_init()
 		width = 70, height = 15,
 		draw = function (self)
 			rectfill(0, 0, 150, 25, 1)
-			print("Save", 70/2-(4*5\2), 4, 7)
+			
+			if saved_lb_entry then
+				print("Saved!", 70/2-(5*5\2)-1, 4, 11)
+			else
+				print("Save", 70/2-(4*5\2), 4, 7)
+			end
 		end,
 		click = function (self)
 			uuid = fetch("/appdata/pacman_uuid.pod")
@@ -142,6 +148,8 @@ function _gui_init()
 				local uuid = table.remove(words)
 				store("/appdata/pacman_uuid.pod", uuid)
 			end
+			
+			saved_lb_entry = true
 		end
 	})
 	
