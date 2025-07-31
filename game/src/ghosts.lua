@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-20 19:14:24",modified="2025-07-26 13:14:42",revision=275]]
+--[[pod_format="raw",created="2025-07-20 19:14:24",modified="2025-07-29 14:50:27",revision=290]]
 function _ghosts_init()
 	ghost_spawn_locations = {
 		{ x = 224, y = 128 },
@@ -209,7 +209,7 @@ function _ghosts_update()
 				break
 			end
 		end
-	else
+	elseif pinky_respawn_at then -- for some reason i got a nil comparation error only here
 		if pinky_respawn_at < time() then
 			local loc = ghost_spawn_locations[math.random(#ghost_spawn_locations)]
 			pinky = { x = loc.x, y = loc.y, dir = 2, s = 17, c = 14 }

@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-07-26 11:48:19",revision=352]]
+--[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-07-30 19:50:56",revision=356]]
 function _player_init()
 	p = {
 		x = 16,
@@ -28,8 +28,7 @@ function _player_update()
 	
 	if freeze then
 		if time() >= reset_time then
-			freeze = false
-			gameOver = true
+			game_over = true
 			_init()
 		end
 		return

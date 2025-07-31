@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-22 08:22:49",modified="2025-07-28 18:32:38",revision=377]]
+--[[pod_format="raw",created="2025-07-22 08:22:49",modified="2025-07-31 11:02:47",revision=556]]
 function _gui_init()
 	show_lb = false
 	lb_entries = {}
@@ -53,7 +53,7 @@ function _gui_init()
 		click = function (self)
 			show_lb = true
 			
-			data = fetch(apiUrl.."/lb/get")
+			data = fetch(api_url.."/lb/get")
 			
 			i = 1
 			for l in data:gmatch("([^\r\n]*)([\r\n]*)") do
@@ -82,9 +82,70 @@ function _gui_init()
 			exit()
 		end
 	})
-
 	
-	hi = fetch("/appdata/pacman_hi.pod")
+	game_over_ui = create_gui()
+	
+	main_menu_button = game_over_ui:attach({
+		x = 240-75, y = 140,
+		width = 150, height = 25,
+		draw = function (self)
+			rectfill(0, 0, 150, 25, 1)
+			print("Main Menu", 75-(9*5\2), 9, 7)
+		end,
+		click = function (self)
+			game_over = false
+		end
+	})
+	
+	username_text = attach_text_editor_fixed(game_over_ui, {
+		x = 165, y = 115,
+		width = 70, height = 15,
+		bgcol = 1, fgcol = 7,
+		margin_top = 4
+	})
+	
+	username_text:set_keyboard_focus(true)
+
+	save_button = game_over_ui:attach({
+		x = 245, y = 115,
+		width = 70, height = 15,
+		draw = function (self)
+			rectfill(0, 0, 150, 25, 1)
+			print("Save", 70/2-(4*5\2), 4, 7)
+		end,
+		click = function (self)
+			uuid = fetch("/appdata/pacman_uuid.pod")
+			
+			score = 0
+			if (p) score = p.score	
+	
+			if uuid then
+				res = fetch(
+					api_url.."/lb/set?user="
+					..username_text:get_text()[1]:gsub(" ", "%%20")
+					.."&score="..tostring(score)
+					.."&id="..uuid
+				)
+			else
+				res = fetch(
+					api_url.."/lb/set?user="
+					..username_text:get_text()[1]:gsub(" ", "%s")
+					.."&score="..tostring(score)
+				) 
+				
+				local words = {}
+				
+				for word in res:gmatch("%S+") do
+					table.insert(words, word)
+				end
+				   
+				local uuid = table.remove(words)
+				store("/appdata/pacman_uuid.pod", uuid)
+			end
+		end
+	})
+	
+	highscore = fetch("/appdata/pacman_hi.pod")
 end
 
 function _gui_update()
@@ -96,6 +157,8 @@ function _gui_update()
 		elseif btn(3) then
 			scroll_offset -= 2
 		end
+	elseif game_over then
+		game_over_ui:update_all()
 	elseif not show_info then
 		main_menu:update_all()
 	end
@@ -130,10 +193,21 @@ function _gui_draw()
 		print("Name", 190, 16, 7)
 		print("Score", 290, 16, 7)	
 		print("-------------------------", 190, 32, 7)
+	elseif game_over then
+		print("\^w\^tYou Died :(", 240-(11*5)+2, 16, 7)
+		
+		score = 0
+		if (p) score = p.score
+		score_text = "Score: "..tostring(score)
+		print(score_text, 240-(#score_text*2)-3, 32, 7)
+		
+		game_over_ui:draw_all()
+		
+		print("Username:", 165, 106, 7)
 	else
 		main_menu:draw_all()
 		
-		print("High Score: "..tostring(hi), 8, 8, 7)
+		print("High Score: "..tostring(highscore), 8, 8, 7)
 		print("Made by cyteon", 8, 254, 7)
 	end
 end

@@ -13,7 +13,7 @@ let db;
 
     await db.exec(`
         CREATE TABLE IF NOT EXISTS leaderboard (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id UUID PRIMARY KEY,
             user TEXT NOT NULL,
             score INTEGER NOT NULL
         )
@@ -33,15 +33,24 @@ const app = new Elysia({ adapter: node() })
         return data;
     })
     .get("/lb/set", async ({ query }) => {
-        const { user, score } = query;
+        let { id, user, score } = query;
 
         if (!user || !score) {
             return "Invalid parameters";
         }
 
-        await db.run("INSERT INTO leaderboard (user, score) VALUES (?, ?)", [user, score]);
+        const existing = await db.get("SELECT * FROM leaderboard WHERE id = ?", [id]);
 
-        return "201 Created";
+        if (existing) {
+            await db.run("UPDATE leaderboard SET user = ?, score = ? WHERE id = ?", [user, score, id]);
+            return "200 OK";
+        }
+
+        id = crypto.randomUUID();
+
+        await db.run("INSERT INTO leaderboard (id, user, score) VALUES (?, ?, ?)", [id, user, score]);
+
+        return `201 CREATED ${id}`;
     })
     .listen(3000, ({ hostname, port }) => {
         console.log(`🦊 Elysia is running at ${hostname}:${port}`);

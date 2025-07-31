@@ -1,24 +1,25 @@
---[[pod_format="raw",created="2025-07-15 17:18:57",modified="2025-07-27 10:06:37",revision=51]]
+--[[pod_format="raw",created="2025-07-15 17:18:57",modified="2025-07-30 19:59:17",revision=82]]
 include("src/player.lua")
 include("src/bullets.lua")
 include("src/utils.lua")
 include("src/ghosts.lua")
 include("src/dots.lua")
 include("src/gui.lua")
+include("sys/gui_ed.lua")
 
 -- putting this here so its not affected by _init()
-gameOver = false
-apiUrl = "http://localhost:3000"
+game_over = true
+api_url = "http://localhost:3000"
+
+flags = {
+	wall = 0,
+	wall_allow_up = 1,
+	no_dots = 2,
+	ghost = 3,
+	bullet = 4
+}
 
 function _init()
-	flags = {
-		wall = 0,
-		wall_allow_up = 1,
-		no_dots = 2,
-		ghost = 3,
-		bullet = 4
-	}
-
 	freeze = false
 	menu = true
 
@@ -36,6 +37,10 @@ end
 
 function _draw()
 	cls()
+	
+	-- refrence so i can center shit
+	rectfill(0, 135, 480, 135, 8)
+	rectfill(240, 0, 240, 270, 8)
 	
 	if (menu) _gui_draw(); return	
 
