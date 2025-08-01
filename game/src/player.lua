@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-07-30 19:50:56",revision=356]]
+--[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-08-01 10:39:57",revision=363]]
 function _player_init()
 	p = {
 		x = 16,
@@ -11,7 +11,10 @@ function _player_init()
 		hp = 3,
 		ammo = 10,
 		score = 0,
-		can_shoot_at = 0
+		can_shoot_at = 0,
+		
+		power_up = false, -- this goes true after eating a power pellet
+		power_up_end = 0
 	}
 end
 
@@ -33,6 +36,8 @@ function _player_update()
 		end
 		return
 	end
+	
+	if (p.power_up and p.power_up_end < time()) p.power_up = false
 
 	if btnp(0) and not collides_left(p.x, p.y, flags.wall) then -- left
 		p.dir = 0
@@ -61,7 +66,9 @@ function _player_update()
 		end
 		
 		if not collides_left(p.x, p.y, flags.wall) then
-			p.x -= 1
+			if p.power_up then p.x -= 2
+			else p.x -= 1
+			end
 		end
 	elseif p.dir == 1 then
 		if p.y > ty then p.y -= min(1, p.y - ty)
@@ -69,7 +76,9 @@ function _player_update()
 		end
 		
 		if not collides_right(p.x, p.y, flags.wall) then
-			p.x += 1
+			if p.power_up then p.x += 2
+			else p.x += 1
+			end
 		end
 	elseif p.dir == 2 then
 		if p.x > tx then p.x -= min(1, p.x - tx)
@@ -77,7 +86,9 @@ function _player_update()
 		end
 		
 		if not collides_up(p.x, p.y, flags.wall) then
-			p.y -= 1
+			if p.power_up then p.y -= 2
+			else p.y -= 1
+			end
 		end
 	elseif p.dir == 3 then
 		if p.x > tx then p.x -= min(1, p.x - tx)
@@ -85,7 +96,9 @@ function _player_update()
 		end
 		
 		if not collides_down(p.x, p.y, flags.wall) then
-			p.y += 1
+			if p.power_up then p.y += 2
+			else p.y += 1
+			end
 		end
 	end
 	

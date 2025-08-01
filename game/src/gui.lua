@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-22 08:22:49",modified="2025-07-31 11:23:22",revision=580]]
+--[[pod_format="raw",created="2025-07-22 08:22:49",modified="2025-07-31 12:34:05",revision=582]]
 function _gui_init()
 	show_lb = false
 	lb_entries = {}
@@ -179,7 +179,8 @@ function _gui_draw()
 		print("On keyboard the O button is the'z' key, and the X button is the 'z' key", 4, 20)
 		print("Move around with the left/right/up/down arrows", 4, 32)
 		print("Shoot with the X button", 4, 44)
-		print("Score increases by 10 for eating a dot, 100 for killing a ghost", 4, 56)
+		print("Score increases by 10 for eating a dot, 200 for killing a ghost", 4, 56)
+		print("Eating a power pellet lets you eat ghosts for 10 seconds", 4, 68)
 	
 		return
 	elseif show_lb then

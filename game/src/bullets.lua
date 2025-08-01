@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-17 06:51:51",modified="2025-07-23 09:49:36",revision=63]]
+--[[pod_format="raw",created="2025-07-17 06:51:51",modified="2025-08-01 10:40:21",revision=64]]
 function _bullets_init()
 	bullets = {}
 end
@@ -20,10 +20,10 @@ function _bullets_update()
 		if (bullet.dir == 2 and collides_up(bullet.x, bullet.y, flags.wall)) del(bullets, bullet)
 		if (bullet.dir == 3 and collides_down(bullet.x, bullet.y, flags.wall)) del(bullets, bullet)
 
-		if (bullet.dir == 0) bullet.x -= 2
-		if (bullet.dir == 1) bullet.x += 2
-		if (bullet.dir == 2) bullet.y -= 2
-		if (bullet.dir == 3) bullet.y += 2
+		if (bullet.dir == 0) bullet.x -= 3
+		if (bullet.dir == 1) bullet.x += 3
+		if (bullet.dir == 2) bullet.y -= 3
+		if (bullet.dir == 3) bullet.y += 3
 	end
 end
 

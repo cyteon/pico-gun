@@ -42,6 +42,8 @@ const app = new Elysia({ adapter: node() })
         const existing = await db.get("SELECT * FROM leaderboard WHERE id = ?", [id]);
 
         if (existing) {
+            if (existing.score >= score) return "200 OK"; // we aint reducing your score :sob:
+
             await db.run("UPDATE leaderboard SET user = ?, score = ? WHERE id = ?", [user, score, id]);
             return "200 OK";
         }

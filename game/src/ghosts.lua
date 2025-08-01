@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-20 19:14:24",modified="2025-07-29 14:50:27",revision=290]]
+--[[pod_format="raw",created="2025-07-20 19:14:24",modified="2025-08-01 10:54:46",revision=329]]
 function _ghosts_init()
 	ghost_spawn_locations = {
 		{ x = 224, y = 128 },
@@ -91,8 +91,14 @@ function _ghosts_update()
 		
 		if spr_collides(blinky.x, blinky.y, 16, 16, p.x, p.y, 16, 16) then
 			if not blinky.recent_collision then
-				p.hp -= 1
-				blinky.recent_collision = true
+				if p.power_up then
+					blinky = nil
+					blinky_respawn_at = time() + 2
+					p.score += 200
+				else 
+					p.hp -= 1
+					blinky.recent_collision = true
+				end	
 			end
 		else
 			blinky.recent_collision = false
@@ -105,7 +111,7 @@ function _ghosts_update()
 				blinky = nil
 				blinky_respawn_at = time() + 2
 			
-				p.score += 100
+				p.score += 200
 				
 				break
 			end
@@ -139,8 +145,14 @@ function _ghosts_update()
 		
 		if spr_collides(clyde.x, clyde.y, 16, 16, p.x, p.y, 16, 16) then
 			if not clyde.recent_collision then
-				p.hp -= 1
-				clyde.recent_collision = true
+				if p.power_up then
+					clyde = nil
+					clyde_respawn_at = time() + 2
+					p.score += 200
+				else 
+					p.hp -= 1
+					clyde.recent_collision = true
+				end
 			end
 		else
 			clyde.recent_collision = false
@@ -190,8 +202,14 @@ function _ghosts_update()
 		
 		if spr_collides(pinky.x, pinky.y, 16, 16, p.x, p.y, 16, 16) then
 			if not pinky.recent_collision then
-				p.hp -= 1
-				pinky.recent_collision = true
+				if p.power_up then
+					pinky = nil
+					pinky_respawn_at = time() + 2
+					p.score += 200
+				else 
+					p.hp -= 1
+					pinky.recent_collision = true
+				end
 			end
 		else
 			pinky.recent_collision = false
@@ -247,8 +265,14 @@ function _ghosts_update()
 		
 		if spr_collides(inky.x, inky.y, 16, 16, p.x, p.y, 16, 16) then
 			if not inky.recent_collision then
-				p.hp -= 1
-				inky.recent_collision = true
+				if p.power_up then
+					inky = nil
+					inky_respawn_at = time() + 2
+					p.score += 200
+				else 
+					p.hp -= 1
+					inky.recent_collision = true
+				end
 			end
 		else
 			inky.recent_collision = false
@@ -276,26 +300,58 @@ end
 
 function _ghosts_draw()
 	if blinky then
-		pal(8, blinky.c)
+		if p.power_up then
+			if p.power_up_end - time() < 3 and math.floor((p.power_up_end - time())) % 2 == 0  then
+				pal(8, 7)
+			else
+				pal(8, 16)
+			end
+		else pal(8, blinky.c)
+		end
+
 		spr(blinky.s, blinky.x, blinky.y, blinky.hf)
 		pal()
 	end
 	
 
 	if clyde then
-		pal(8, clyde.c)
+		if p.power_up then 
+			if p.power_up_end - time() < 3 and math.floor((p.power_up_end - time())) % 2 == 0  then
+				pal(8, 7)
+			else
+				pal(8, 16)
+			end
+		else pal(8, clyde.c)	
+		end
+
 		spr(clyde.s, clyde.x, clyde.y, clyde.hf)
 		pal()
 	end
 	
 	if pinky then
-		pal(8, pinky.c)
+		if p.power_up then
+			if p.power_up_end - time() < 3 and math.floor((p.power_up_end - time())) % 2 == 0  then
+				pal(8, 7)
+			else
+				pal(8, 16)
+			end
+		else pal(8, pinky.c)
+		end
+		
 		spr(pinky.s, pinky.x, pinky.y, pinky.hf)
 		pal()
 	end
 	
 	if inky then
-		pal(8, inky.c)
+		if p.power_up then
+			if p.power_up_end - time() < 3 and math.floor((p.power_up_end - time())) % 2 == 0  then
+				pal(8, 7)
+			else
+				pal(8, 16)
+			end
+		else pal(8, inky.c)
+		end
+		
 		spr(inky.s, inky.x, inky.y, inky.hf)
 		pal()
 	end
