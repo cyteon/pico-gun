@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-20 19:14:24",modified="2025-08-01 10:54:46",revision=329]]
+--[[pod_format="raw",created="2025-07-20 19:14:24",modified="2025-08-01 12:54:35",revision=356]]
 function _ghosts_init()
 	ghost_spawn_locations = {
 		{ x = 224, y = 128 },
@@ -64,6 +64,27 @@ function move_toward(ghost, tx, ty)
 	ghost.dir = best_dir
 end
 
+function move_random(ghost)
+	if (ghost.x % 16 != 0 or ghost.y % 16 != 0) return
+	
+	possible_dirs = {}
+	
+	local collision_left = collides_left(ghost.x, ghost.y, flags.wall)
+	local collision_right = collides_right(ghost.x, ghost.y, flags.wall)
+	local collision_up = (
+		collides_up(ghost.x, ghost.y, flags.wall) and
+		not collides_up(ghost.x, ghost.y, flags.wall_allow_upz)
+	)
+	local collision_down = collides_down(ghost.x, ghost.y, flags.wall)
+	
+	if (not collision_left and ghost.dir != 1) add(possible_dirs, 0)
+	if (not collision_right and ghost.dir != 0) add(possible_dirs, 1)
+	if (not collision_up and ghost.dir != 3) add(possible_dirs, 2)
+	if (not collision_down and ghost.dir != 2) add(possible_dirs, 3)
+	
+	ghost.dir = possible_dirs[math.random(#possible_dirs)]
+end
+
 function _ghosts_update()
 	if (freeze) return
 	
@@ -78,7 +99,9 @@ function _ghosts_update()
 	-- blinky	
 
 	if blinky then
-		if scatter_mode then
+		if p.power_up then
+			move_random(blinky)
+		elseif scatter_mode then -- frightened mode
 			move_toward(blinky, 464, 0)
 		else
 			move_toward(blinky, p.x, p.y)
@@ -126,7 +149,9 @@ function _ghosts_update()
 	-- clyde
 	
 	if clyde then
-		if scatter_mode then
+		if p.power_up then
+			move_random(clyde)
+		elseif scatter_mode then
 			move_toward(clyde, 0, 270)
 		else
 			local dist = sqrt((p.x - clyde.x)^2 + (p.y - clyde.y)^2)
@@ -180,7 +205,9 @@ function _ghosts_update()
 	-- pinky
 	
 	if pinky then
-		if scatter_mode then
+		if p.power_up then	
+			move_random(pinky)
+		elseif scatter_mode then
 			move_toward(pinky, 0, 0)
 		else
 			local tx = p.x
@@ -237,7 +264,10 @@ function _ghosts_update()
 	-- inky
 	
 	if inky then
-		if scatter_mode or not blinky then
+		if p.power_up then
+			move_random(inky)	
+		elseif scatter_mode or not blinky then
+			-- it uses blinky to calc where to go, no blinky = no calculate
 			move_toward(inky, 480, 270)
 		else
 			local ax = p.x

@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-21 18:41:11",modified="2025-07-31 17:36:35",revision=89]]
+--[[pod_format="raw",created="2025-07-21 18:41:11",modified="2025-08-01 12:56:01",revision=94]]
 function _dots_init()
 	dots = {}
 	
@@ -34,6 +34,28 @@ function _dots_update()
 			end
 		
 			del(dots, dot)
+		end
+	end
+	
+	if math.floor(time()) == time() then
+		for i=5,0,-1 do
+			local ty = math.random(2, 15)
+			local tx = math.random(1, 28)
+			
+			if not fget(mget(tx, ty), flags.no_dots) then
+				local type_ = "dot"	
+			
+				-- make everything way rarer
+				if math.random(1,50) == 1 then
+					type_ = "ammo"
+				elseif math.random(1,200) == 1 then
+					type_ = "power"
+				elseif math.random(1,500) == 1 then
+					type_ = "heart"
+				end
+			
+				add(dots, { x = tx * 16, y = ty * 16, type = type_ })
+			end
 		end
 	end
 end
