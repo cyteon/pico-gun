@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-21 18:41:11",modified="2025-08-02 14:08:52",revision=102]]
+--[[pod_format="raw",created="2025-07-21 18:41:11",modified="2025-08-02 14:59:39",revision=103]]
 function _dots_init()
 	dots = {}
 	
@@ -39,10 +39,13 @@ function _dots_update()
 	
 	if #dots == 0 then
 		level += 1
+		local tmp_score = p.score
 
 		_dots_init()
 		_ghosts_init()
 		_player_init()
+		
+		p.score = tmp_score
 	end
 end
 
