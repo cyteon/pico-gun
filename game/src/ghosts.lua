@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-20 19:14:24",modified="2025-08-01 12:54:35",revision=356]]
+--[[pod_format="raw",created="2025-07-20 19:14:24",modified="2025-08-02 13:44:17",revision=410]]
 function _ghosts_init()
 	ghost_spawn_locations = {
 		{ x = 224, y = 128 },
@@ -6,10 +6,11 @@ function _ghosts_init()
 	}
 	
 	-- each ghost has diffrent behaviour
-	blinky = { x = 224, y = 128, dir = 2, s = 17, c = 8 }
-	clyde = { x = 224, y = 128, dir = 2, s = 17, c = 10 }
-	pinky = { x = 240, y = 128, dir = 2, s = 17, c = 14 }
-	inky = { x = 240, y = 128, dir = 2, s = 17, c = 16 }
+	-- max_hp is to determine when to show remaining hp
+	blinky = { x = 224, y = 128, dir = 2, s = 17, c = 8, hp = 1, max_hp = 1 }
+	clyde = { x = 224, y = 128, dir = 2, s = 17, c = 10, hp = 1, max_hp = 1 }
+	pinky = { x = 240, y = 128, dir = 2, s = 17, c = 14, hp = 1, max_hp = 1 }
+	inky = { x = 240, y = 128, dir = 2, s = 17, c = 16, hp = 1, max_hp = 1 }
 	
 	blinky_respawn_at = 0
 	clyde_respawn_at = 0
@@ -129,12 +130,15 @@ function _ghosts_update()
 
 		for bullet in all(bullets) do
 			if spr_collides(bullet.x + 8, bullet.y + 8, 4, 4, blinky.x, blinky.y, 16, 16) then
+				blinky.hp -= 1
 				del(bullets, bullet)
 				
-				blinky = nil
-				blinky_respawn_at = time() + 2
+				if blinky.hp <= 0 then
+					blinky = nil
+					blinky_respawn_at = time() + 2
+				end
 			
-				p.score += 200
+				p.score += 200 -- i think u should get point no matter what if u hit
 				
 				break
 			end
@@ -142,7 +146,7 @@ function _ghosts_update()
 	else
 		if blinky_respawn_at < time() then
 			local loc = ghost_spawn_locations[math.random(#ghost_spawn_locations)]
-			blinky = { x = loc.x, y = loc.y, dir = 2, s = 17, c = 8 }
+			blinky = { x = loc.x, y = loc.y, dir = 2, s = 17, c = 8, hp = 1, max_hp = 1 }
 		end
 	end
 
@@ -185,12 +189,15 @@ function _ghosts_update()
 
 		for bullet in all(bullets) do
 			if spr_collides(bullet.x + 8, bullet.y + 8, 4, 4, clyde.x, clyde.y, 16, 16) then
+				clyde.hp -= 1
 				del(bullets, bullet)
 				
-				clyde = nil
-				clyde_respawn_at = time() + 2
-			
-				p.score += 100
+				if clyde.hp <= 0 then
+					clyde = nil
+					clyde_respawn_at = time() + 2
+				end	
+		
+				p.score += 200
 				
 				break
 			end
@@ -198,7 +205,7 @@ function _ghosts_update()
 	else
 		if clyde_respawn_at < time() then
 			local loc = ghost_spawn_locations[math.random(#ghost_spawn_locations)]
-			clyde = { x = loc.x, y = loc.y, dir = 2, s = 17, c = 10 }
+			clyde = { x = loc.x, y = loc.y, dir = 2, s = 17, c = 10, hp = 1, max_hp = 1 }
 		end
 	end
 	
@@ -244,12 +251,15 @@ function _ghosts_update()
 
 		for bullet in all(bullets) do
 			if spr_collides(bullet.x + 8, bullet.y + 8, 4, 4, pinky.x, pinky.y, 16, 16) then
+				pinky.hp -= 1
 				del(bullets, bullet)
 				
-				pinky = nil
-				pinky_respawn_at = time() + 2	
+				if pinky.hp <= 0 then
+					pinky = nil
+					pinky_respawn_at = time() + 2
+				end	
 			
-				p.score += 100
+				p.score += 200
 				
 				break
 			end
@@ -257,7 +267,7 @@ function _ghosts_update()
 	elseif pinky_respawn_at then -- for some reason i got a nil comparation error only here
 		if pinky_respawn_at < time() then
 			local loc = ghost_spawn_locations[math.random(#ghost_spawn_locations)]
-			pinky = { x = loc.x, y = loc.y, dir = 2, s = 17, c = 14 }
+			pinky = { x = loc.x, y = loc.y, dir = 2, s = 17, c = 14, hp = 1, max_hp = 1 }
 		end
 	end
 	
@@ -310,12 +320,15 @@ function _ghosts_update()
 
 		for bullet in all(bullets) do
 			if spr_collides(bullet.x + 8, bullet.y + 8, 4, 4, inky.x, inky.y, 16, 16) then
+				inky.hp -= 1
 				del(bullets, bullet)
 				
-				inky = nil
-				inky_respawn_at = time() + 2
+				if inky.hp <= 0 then
+					inky = nil
+					inky_respawn_at = time() + 2
+				end
 			
-				p.score += 100
+				p.score += 200
 				
 				break
 			end
@@ -323,7 +336,7 @@ function _ghosts_update()
 	else
 		if inky_respawn_at < time() then
 			local loc = ghost_spawn_locations[math.random(#ghost_spawn_locations)]
-			inky = { x = loc.x, y = loc.y, dir = 2, s = 17, c = 16 }
+			inky = { x = loc.x, y = loc.y, dir = 2, s = 17, c = 16, hp = 1, max_hp = 1 }
 		end
 	end
 end
@@ -341,6 +354,17 @@ function _ghosts_draw()
 
 		spr(blinky.s, blinky.x, blinky.y, blinky.hf)
 		pal()
+		
+		if blinky.hp != blinky.max_hp then
+			rectfill(blinky.x + 3, blinky.y - 2, blinky.x + 12, blinky.y - 2, 8)
+			rectfill(
+				blinky.x + 3, 
+				blinky.y - 2, 
+				blinky.x + 3 + 9 * blinky.hp / blinky.max_hp,
+				blinky.y - 2, 
+				11
+			)
+		end
 	end
 	
 

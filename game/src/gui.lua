@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-22 08:22:49",modified="2025-07-31 12:34:05",revision=582]]
+--[[pod_format="raw",created="2025-07-22 08:22:49",modified="2025-08-02 13:21:23",revision=584]]
 function _gui_init()
 	show_lb = false
 	lb_entries = {}
@@ -153,7 +153,7 @@ function _gui_init()
 		end
 	})
 	
-	highscore = fetch("/appdata/pacman_hi.pod")
+	highscore = fetch("/appdata/pacman_hi.pod") or "none"
 end
 
 function _gui_update()
