@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-08-01 10:39:57",revision=363]]
+--[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-08-02 14:08:31",revision=367]]
 function _player_init()
 	p = {
 		x = 16,
@@ -26,7 +26,9 @@ function _player_update()
 		-- despawn all ghosts
 		blinky = nil; clyde = nil; pinky = nil; inky = nil
 		
-		store("/appdata/pacman_hi.pod", p.score)
+		if p.score > fetch("/appdata/pacman_hi.pod") then
+			store("/appdata/pacman_hi.pod", p.score)
+		end
 	end
 	
 	if freeze then

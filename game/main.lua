@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-15 17:18:57",modified="2025-08-02 13:46:21",revision=93]]
+--[[pod_format="raw",created="2025-07-15 17:18:57",modified="2025-08-02 13:46:40",revision=94]]
 -- i copied this entire 1600 line file from the system, to change one line
 include("sys/gui_ed.lua")
 
@@ -24,7 +24,7 @@ flags = {
 function _init()
 	freeze = false
 	menu = true
-
+	level = 1 -- incremented when all dots cleared
 
 	_gui_init()
 end
