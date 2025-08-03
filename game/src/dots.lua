@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-21 18:41:11",modified="2025-08-03 19:33:36",revision=139]]
+--[[pod_format="raw",created="2025-07-21 18:41:11",modified="2025-08-03 20:23:33",revision=144]]
 function _dots_init()
 	dots = {}
 	
@@ -12,6 +12,8 @@ function _dots_init()
 					type_ = "ammo"
 				elseif math.random(1,50) == 1 then
 					type_ = "speed"
+				elseif math.random(1,50) == 1 then
+					type_ = "bouncing"
 				elseif math.random(1,80) == 1 then
 					type_ = "power"
 				elseif math.random(1,100) == 1 then
@@ -59,6 +61,8 @@ function _dots_update()
 						end
 					end
 				end
+			elseif dot.type == "bouncing" then
+				p.bouncy_bullets_left += 1
 			else p.score += 10
 			end
 		
@@ -89,6 +93,7 @@ function _dots_draw()
 		elseif dot.type == "multi_shoot" then spr(12, dot.x, dot.y)
 		elseif dot.type == "speed" then spr(11, dot.x, dot.y)
 		elseif dot.type == "spawn_powerups" then spr(10, dot.x, dot.y)
+		elseif dot.type == "bouncing" then spr(23, dot.x, dot.y)
 		else spr(14, dot.x, dot.y)
 		end
 	end

@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-08-03 16:14:15",revision=467]]
+--[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-08-03 20:23:50",revision=477]]
 function _player_init()
 	p = {
 		x = 16,
@@ -24,6 +24,8 @@ function _player_init()
 		
 		double_speed = false, -- self explanatory
 		double_speed_end = 0,
+		
+		bouncy_bullets_left = 0,
 		
 		offset_x = 0,
 		offset_y = 0,
@@ -117,14 +119,16 @@ function _player_update()
 
 	if btnp(5) and p.ammo > 0 and p.can_shoot_at < time() then
 		if p.multi_shoot then
-			spawn_bullet(p.x, p.y, 0)
-			spawn_bullet(p.x, p.y, 1)
-			spawn_bullet(p.x, p.y, 2)
-			spawn_bullet(p.x, p.y, 3)
+			spawn_bullet(p.x, p.y, 0, p.bouncy_bullets_left > 0)
+			spawn_bullet(p.x, p.y, 1, p.bouncy_bullets_left > 0)
+			spawn_bullet(p.x, p.y, 2, p.bouncy_bullets_left > 0)
+			spawn_bullet(p.x, p.y, 3, p.bouncy_bullets_left > 0)
 		else
-			spawn_bullet(p.x, p.y, p.dir)
+			spawn_bullet(p.x, p.y, p.dir, p.bouncy_bullets_left > 0)
 		end	
-	
+		
+		 p.bouncy_bullets_left -= 1
+
 		p.ammo -= 1
 		p.can_shoot_at = time() + 0.5
 	end

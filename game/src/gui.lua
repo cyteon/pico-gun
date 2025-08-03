@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-22 08:22:49",modified="2025-08-03 19:33:11",revision=614]]
+--[[pod_format="raw",created="2025-07-22 08:22:49",modified="2025-08-03 19:52:17",revision=616]]
 function _gui_init()
 	show_lb = false
 	lb_entries = {}
@@ -187,6 +187,7 @@ function _gui_draw()
 		spr(11, 4, 108) print("doubles your speed for 10 seconds", 24, 112, 7)
 		spr(10, 4, 122) print("spawns 1-3 random powerups", 24, 126, 7)
 		spr(15, 4, 136) print("gives you one more heart", 24, 140, 7)
+		spr(23, 4, 150) print("makes your next bullet bounce around until it hits a ghost", 24, 154, 7)
 	
 		return
 	elseif show_lb then
