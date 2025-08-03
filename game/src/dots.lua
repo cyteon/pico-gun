@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-21 18:41:11",modified="2025-08-03 16:12:21",revision=116]]
+--[[pod_format="raw",created="2025-07-21 18:41:11",modified="2025-08-03 19:33:36",revision=139]]
 function _dots_init()
 	dots = {}
 	
@@ -18,6 +18,8 @@ function _dots_init()
 					type_ = "multi_shoot"
 				elseif math.random(1,200) == 1 then
 					type_ = "heart"
+				elseif math.random(1,200) == 1 then
+					type_ = "spawn_powerups"
 				end
 			
 				add(dots, { x = tx * 16, y = ty * 16, type = type_ })
@@ -40,6 +42,23 @@ function _dots_update()
 			elseif dot.type == "speed" then
 				p.double_speed = true
 				p.double_speed_end = time() + 10
+			elseif dot.type == "spawn_powerups" then
+				local powerups = {"speed", "power", "multi_shoot", "heart"}
+				
+				for i=3,0,-1 do
+					local type_ = powerups[math.random(#powerups)]
+					
+					while true do
+						local ty = math.random(2,15)
+						local tx = math.random(1,28)
+						
+						if not fget(mget(tx, ty), flags.no_dots) then
+							add(dots, { x = tx * 16, y = ty * 16, type = type_ })
+					
+							break
+						end
+					end
+				end
 			else p.score += 10
 			end
 		
@@ -49,13 +68,16 @@ function _dots_update()
 	
 	if #dots == 0 then
 		level += 1
+		
 		local tmp_score = p.score
+		local tmp_hp = p.hp
 
 		_dots_init()
 		_ghosts_init()
 		_player_init()
 		
 		p.score = tmp_score
+		p.hp = tmp_hp
 	end
 end
 
@@ -66,6 +88,7 @@ function _dots_draw()
 		elseif dot.type == "power" then spr(13, dot.x, dot.y)
 		elseif dot.type == "multi_shoot" then spr(12, dot.x, dot.y)
 		elseif dot.type == "speed" then spr(11, dot.x, dot.y)
+		elseif dot.type == "spawn_powerups" then spr(10, dot.x, dot.y)
 		else spr(14, dot.x, dot.y)
 		end
 	end

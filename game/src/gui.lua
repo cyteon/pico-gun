@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-22 08:22:49",modified="2025-08-03 16:06:16",revision=606]]
+--[[pod_format="raw",created="2025-07-22 08:22:49",modified="2025-08-03 19:33:11",revision=614]]
 function _gui_init()
 	show_lb = false
 	lb_entries = {}
@@ -180,10 +180,13 @@ function _gui_draw()
 		print("Move around with the left/right/up/down arrows", 4, 32)
 		print("Shoot with the X button", 4, 44)
 		print("Score increases by 10 for eating a dot, 200 for killing a ghost", 4, 56)
-		print("Eating a power pellet lets you eat ghosts for 10 seconds", 4, 68)
+		print("Across the map you might find some powerups", 4, 68)
 		
 		spr(13, 4, 80) print("gives you the ability to eat ghosts and gives you double speed, lasts 5 seconds", 24, 84, 7)
 		spr(12, 4, 94) print("makes you shoot in every direction for the cost of 1 bullet, lasts 10 seconds", 24, 98, 7)	
+		spr(11, 4, 108) print("doubles your speed for 10 seconds", 24, 112, 7)
+		spr(10, 4, 122) print("spawns 1-3 random powerups", 24, 126, 7)
+		spr(15, 4, 136) print("gives you one more heart", 24, 140, 7)
 	
 		return
 	elseif show_lb then
