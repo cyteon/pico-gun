@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-08-03 20:32:03",revision=478]]
+--[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-08-03 20:41:25",revision=498]]
 function _player_init()
 	p = {
 		x = 16,
@@ -149,8 +149,19 @@ function _player_draw()
 	spr(p.sprite, p.x, p.y, p.h_flip, p.v_flip)
 	
 	-- hearts
-	for i = p.hp, 1, -1 do
+	local x = 0
+	for i=p.hp, 1, -1 do
 		spr(24, (i-1)*16, 0)
+		x += 16
+	end
+	
+	if (p.double_speed) spr(11, x, 0) x += 16
+	if (p.multi_shoot) spr(12, x, 0) x += 16
+	if (p.power_up) spr(13, x, 0) x += 16
+	
+	for i=p.bouncy_bullets_left, 1, -1 do
+		spr(23, x, 0)
+		x += 16
 	end
 	
 	print(string.format("%02d", p.ammo), 230, 5)
