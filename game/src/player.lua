@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-08-03 14:57:31",revision=450]]
+--[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-08-03 16:14:15",revision=467]]
 function _player_init()
 	p = {
 		x = 16,
@@ -16,8 +16,14 @@ function _player_init()
 		score = 0,
 		can_shoot_at = 0,
 		
-		power_up = false, -- this goes true after eating a power pellet
+		power_up = false, -- lets you eat ghosts and make you go double speed
 		power_up_end = 0,
+		
+		multi_shoot = false, -- makes you shoot in all 4 directions
+		multi_shoot_end = 0,
+		
+		double_speed = false, -- self explanatory
+		double_speed_end = 0,
 		
 		offset_x = 0,
 		offset_y = 0,
@@ -49,6 +55,8 @@ function _player_update()
 	end
 	
 	if (p.power_up and p.power_up_end < time()) p.power_up = false
+	if (p.multi_shoot and p.multi_shoot_end < time()) p.multi_shoot = false
+	if (p.double_speed and p.double_speed_end < time()) p.double_speed = false
 		
 	if (btnp(0)) p.planned_dir = 0
 	if (btnp(1)) p.planned_dir = 1
@@ -83,34 +91,41 @@ function _player_update()
 		if not collides_left(p.x, p.y, flags.wall) then
 			-- collision statement to make sure you 
 			-- dont enter a pixel that wont let you move
-			if p.power_up and not collides_left(p.x - 1, p.y, flags.wall) then p.x -= 2
+			if (p.power_up or p.double_speed) and not collides_left(p.x - 1, p.y, flags.wall) then p.x -= 2
 			else p.x -= 1
 			end
 		end
 	elseif p.dir == 1 then
 		if not collides_right(p.x, p.y, flags.wall) then
-			if p.power_up and not collides_right(p.x + 1, p.y, flags.wall) then p.x += 2
+			if (p.power_up or p.double_speed) and not collides_right(p.x + 1, p.y, flags.wall) then p.x += 2
 			else p.x += 1
 			end
 		end
 	elseif p.dir == 2 then
 		if not collides_up(p.x, p.y, flags.wall) then
-			if p.power_up and not collides_up(p.x, p.y - 1, flags.wall) then p.y -= 2
+			if (p.power_up or p.double_speed) and not collides_up(p.x, p.y - 1, flags.wall) then p.y -= 2
 			else p.y -= 1
 			end
 		end
 	elseif p.dir == 3 then
 		if not collides_down(p.x, p.y, flags.wall) then
-			if p.power_up and not collides_down(p.x, p.y + 1, flags.wall) then p.y += 2
+			if (p.power_up or p.double_speed) and not collides_down(p.x, p.y + 1, flags.wall) then p.y += 2
 			else p.y += 1
 			end
 		end
 	end
 
 	if btnp(5) and p.ammo > 0 and p.can_shoot_at < time() then
-		spawn_bullet(p.x, p.y, p.dir)
+		if p.multi_shoot then
+			spawn_bullet(p.x, p.y, 0)
+			spawn_bullet(p.x, p.y, 1)
+			spawn_bullet(p.x, p.y, 2)
+			spawn_bullet(p.x, p.y, 3)
+		else
+			spawn_bullet(p.x, p.y, p.dir)
+		end	
+	
 		p.ammo -= 1
-		
 		p.can_shoot_at = time() + 0.5
 	end
 	
