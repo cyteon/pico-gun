@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-20 19:14:24",modified="2025-08-02 15:32:22",revision=469]]
+--[[pod_format="raw",created="2025-07-20 19:14:24",modified="2025-08-03 15:03:15",revision=487]]
 function _ghosts_init()
 	ghost_spawn_locations = {
 		{ x = 224, y = 128 },
@@ -159,18 +159,15 @@ function _ghosts_update()
 		if (blinky.dir == 3) blinky.y += 1; blinky.s = 18
 		
 		if spr_collides(blinky.x, blinky.y, 16, 16, p.x, p.y, 16, 16) then
-			if not blinky.recent_collision then
-				if p.power_up then
-					blinky = nil
-					blinky_respawn_at = time() + 2
-					p.score += 200
-				else 
-					p.hp -= 1
-					blinky.recent_collision = true
-				end	
-			end
-		else
-			blinky.recent_collision = false
+			if p.power_up then
+				p.score += 200
+			else
+				p.hp -= 1
+				p.shake_timer = 10
+			end	
+			
+			blinky = nil
+			blinky_respawn_at = time() + 2
 		end	
 
 		if blinky then -- incase blinky gets eaten in the same tick a bullet hits
@@ -220,18 +217,15 @@ function _ghosts_update()
 		if (clyde.dir == 3) clyde.y += 1; clyde.s = 18
 		
 		if spr_collides(clyde.x, clyde.y, 16, 16, p.x, p.y, 16, 16) then
-			if not clyde.recent_collision then
-				if p.power_up then
-					clyde = nil
-					clyde_respawn_at = time() + 2
-					p.score += 200
-				else 
-					p.hp -= 1
-					clyde.recent_collision = true
-				end
+			if p.power_up then
+				p.score += 200
+			else
+				p.hp -= 1
+				p.shake_timer = 10
 			end
-		else
-			clyde.recent_collision = false
+			
+			clyde = nil
+			clyde_respawn_at = time() + 2
 		end
 
 		if clyde then
@@ -283,18 +277,15 @@ function _ghosts_update()
 		if (pinky.dir == 3) pinky.y += 1; pinky.s = 18
 		
 		if spr_collides(pinky.x, pinky.y, 16, 16, p.x, p.y, 16, 16) then
-			if not pinky.recent_collision then
-				if p.power_up then
-					pinky = nil
-					pinky_respawn_at = time() + 2
-					p.score += 200
-				else 
-					p.hp -= 1
-					pinky.recent_collision = true
-				end
+			if p.power_up then
+				p.score += 200
+			else
+				p.hp -= 1
+				p.shake_timer = 10
 			end
-		else
-			pinky.recent_collision = false
+			
+			pinky = nil
+			pinky_respawn_at = time() + 2
 		end	
 
 		if pinky then
@@ -354,18 +345,15 @@ function _ghosts_update()
 		if (inky.dir == 3) inky.y += 1; inky.s = 18;
 		
 		if spr_collides(inky.x, inky.y, 16, 16, p.x, p.y, 16, 16) then
-			if not inky.recent_collision then
-				if p.power_up then
-					inky = nil
-					inky_respawn_at = time() + 2
-					p.score += 200
-				else 
-					p.hp -= 1
-					inky.recent_collision = true
-				end
+			if p.power_up then
+				p.score += 200
+			else
+				p.hp -= 1
+				p.shake_timer = 10
 			end
-		else
-			inky.recent_collision = false
+			
+			inky = nil
+			inky_respawn_at = time() + 2
 		end	
 
 		if inky then

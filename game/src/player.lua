@@ -1,20 +1,29 @@
---[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-08-03 13:54:18",revision=415]]
+--[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-08-03 14:57:31",revision=450]]
 function _player_init()
 	p = {
 		x = 16,
 		y = 240,
+		
 		dir = -1,
 		planned_dir = -1,
+		
 		sprite = 2,
 		h_flip = false,
 		v_flip = true,
+		
 		hp = 3,
 		ammo = 10,
 		score = 0,
 		can_shoot_at = 0,
 		
 		power_up = false, -- this goes true after eating a power pellet
-		power_up_end = 0
+		power_up_end = 0,
+		
+		offset_x = 0,
+		offset_y = 0,
+		shake_strength = 2,
+		shake_decay = 0.8,
+		shake_timer = 0,
 	}
 end
 
@@ -104,6 +113,17 @@ function _player_update()
 		
 		p.can_shoot_at = time() + 0.5
 	end
+	
+	if p.shake_timer > 0 then
+		p.offset_x = sin(p.shake_timer * 0.1) * p.shake_strength
+		p.offset_y = cos(p.shake_timer * 0.1) * p.shake_strength
+		p.shake_timer *= p.shake_decay
+	else
+		p.offset_x = 0
+		p.offset_y = 0
+	end
+	
+	camera(p.offset_x, p.offset_y)
 end
 
 function _player_draw()
