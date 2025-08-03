@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-08-03 13:25:04",revision=412]]
+--[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-08-03 13:54:18",revision=415]]
 function _player_init()
 	p = {
 		x = 16,
@@ -74,7 +74,6 @@ function _player_update()
 		if not collides_left(p.x, p.y, flags.wall) then
 			-- collision statement to make sure you 
 			-- dont enter a pixel that wont let you move
-			-- (only happened on x-axis movement)
 			if p.power_up and not collides_left(p.x - 1, p.y, flags.wall) then p.x -= 2
 			else p.x -= 1
 			end
@@ -87,13 +86,13 @@ function _player_update()
 		end
 	elseif p.dir == 2 then
 		if not collides_up(p.x, p.y, flags.wall) then
-			if p.power_up then p.y -= 2
+			if p.power_up and not collides_up(p.x, p.y - 1, flags.wall) then p.y -= 2
 			else p.y -= 1
 			end
 		end
 	elseif p.dir == 3 then
 		if not collides_down(p.x, p.y, flags.wall) then
-			if p.power_up then p.y += 2
+			if p.power_up and not collides_down(p.x, p.y + 1, flags.wall) then p.y += 2
 			else p.y += 1
 			end
 		end
