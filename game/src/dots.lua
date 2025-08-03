@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-21 18:41:11",modified="2025-08-03 20:23:33",revision=144]]
+--[[pod_format="raw",created="2025-07-21 18:41:11",modified="2025-08-03 20:31:18",revision=145]]
 function _dots_init()
 	dots = {}
 	
@@ -45,7 +45,7 @@ function _dots_update()
 				p.double_speed = true
 				p.double_speed_end = time() + 10
 			elseif dot.type == "spawn_powerups" then
-				local powerups = {"speed", "power", "multi_shoot", "heart"}
+				local powerups = {"speed", "power", "multi_shoot", "heart", "bouncing"}
 				
 				for i=3,0,-1 do
 					local type_ = powerups[math.random(#powerups)]

@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-08-03 20:23:50",revision=477]]
+--[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-08-03 20:32:03",revision=478]]
 function _player_init()
 	p = {
 		x = 16,
@@ -127,7 +127,7 @@ function _player_update()
 			spawn_bullet(p.x, p.y, p.dir, p.bouncy_bullets_left > 0)
 		end	
 		
-		 p.bouncy_bullets_left -= 1
+		if (p.bouncy_bullets_left > 0) p.bouncy_bullets_left -= 1
 
 		p.ammo -= 1
 		p.can_shoot_at = time() + 0.5
