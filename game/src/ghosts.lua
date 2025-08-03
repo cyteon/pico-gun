@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-20 19:14:24",modified="2025-08-02 14:10:57",revision=465]]
+--[[pod_format="raw",created="2025-07-20 19:14:24",modified="2025-08-02 15:32:22",revision=469]]
 function _ghosts_init()
 	ghost_spawn_locations = {
 		{ x = 224, y = 128 },
@@ -119,7 +119,7 @@ function move_random(ghost)
 	local collision_right = collides_right(ghost.x, ghost.y, flags.wall)
 	local collision_up = (
 		collides_up(ghost.x, ghost.y, flags.wall) and
-		not collides_up(ghost.x, ghost.y, flags.wall_allow_upz)
+		not collides_up(ghost.x, ghost.y, flags.wall_allow_up)
 	)
 	local collision_down = collides_down(ghost.x, ghost.y, flags.wall)
 	

@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-08-02 15:22:11",revision=406]]
+--[[pod_format="raw",created="2025-07-15 17:22:09",modified="2025-08-02 15:34:52",revision=408]]
 function _player_init()
 	p = {
 		x = 16,
@@ -72,7 +72,7 @@ function _player_update()
 	
 	if p.dir == 0 then
 		if not collides_left(p.x, p.y, flags.wall) then
-			if p.power_up and (p.x - 2) % 16 == 0 then p.x -= 2
+			if p.power_up then p.x -= 2
 			else p.x -= 1
 			end
 		end
