@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-15 17:18:57",modified="2025-08-04 08:24:23",revision=99]]
+--[[pod_format="raw",created="2025-07-15 17:18:57",modified="2025-08-04 10:02:50",revision=100]]
 -- i copied this entire 1600 line file from the system, to change one line
 include("sys/gui_ed.lua")
 
@@ -11,7 +11,7 @@ include("src/gui.lua")
 	
 -- putting this here so its not affected by _init()
 game_over = false
-api_url = "http://localhost:3000" -- for lb
+api_url = "https://pglb.cyteon.dev" -- for lb
 
 flags = {
 	wall = 0,

@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-22 08:22:49",modified="2025-08-04 08:25:09",revision=619]]
+--[[pod_format="raw",created="2025-07-22 08:22:49",modified="2025-08-04 09:09:44",revision=622]]
 function _gui_init()
 	show_lb = false
 	lb_entries = {}
@@ -174,7 +174,7 @@ end
 
 function _gui_draw()
 	if show_info then
-		print("O - back to menu", 4, 4)
+		print("O (z) - back to menu", 4, 4)
 		
 		print("On keyboard the O button is the'z' key, and the X button is the 'x' key", 4, 20)
 		print("Move around with the left/right/up/down arrows", 4, 32)
@@ -185,13 +185,13 @@ function _gui_draw()
 		spr(13, 4, 80) print("gives you the ability to eat ghosts and gives you double speed, lasts 5 seconds", 24, 84, 7)
 		spr(12, 4, 94) print("makes you shoot in every direction for the cost of 1 bullet, lasts 10 seconds", 24, 98, 7)	
 		spr(11, 4, 108) print("doubles your speed for 10 seconds", 24, 112, 7)
-		spr(10, 4, 122) print("spawns 1-3 random powerups", 24, 126, 7)
+		spr(10, 4, 122) print("spawns 3 random powerups", 24, 126, 7)
 		spr(15, 4, 136) print("gives you one more heart", 24, 140, 7)
 		spr(23, 4, 150) print("makes your next bullet bounce around until it hits a ghost", 24, 154, 7)
 	
 		return
 	elseif show_lb then
-		print("O - back to menu", 4, 4)
+		print("O (z) - back to menu", 4, 4)
 		print("Use arrows to scroll", 4, 12)
 
 		i = 3
