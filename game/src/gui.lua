@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-22 08:22:49",modified="2025-08-04 09:09:44",revision=622]]
+--[[pod_format="raw",created="2025-07-22 08:22:49",modified="2025-08-04 15:53:01",revision=644]]
 function _gui_init()
 	show_lb = false
 	lb_entries = {}
@@ -63,11 +63,13 @@ function _gui_init()
 			       table.insert(words, word)
 			   end
 			   
-			  	local score = tonumber(table.remove(words))
-			  	local name = table.concat(words, " ")
-			  	add(lb_entries, { name = name, score = score, i = i })
+			  	if #words != 0 then
+			  		local score = tonumber(table.remove(words))
+			  		local name = table.concat(words, " ")
+			  		add(lb_entries, { name = name, score = score, i = i })
 			  	
-			  	i += 1
+			  		i += 1
+			  	end
 			end
 		end
 	})
@@ -198,6 +200,7 @@ function _gui_draw()
 		for entry in all(lb_entries) do
 			i_len = 0
 			tostring(entry.i):gsub("%d", function() i_len = i_len + 1 end)
+			
 			
 			print("#"..tostring(entry.i), 170 - i_len * 4, 16 * i + scroll_offset, 7)
 			print(entry.name, 190, 16 * i + scroll_offset, 7)
