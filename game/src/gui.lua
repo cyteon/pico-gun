@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-22 08:22:49",modified="2025-08-03 19:52:17",revision=616]]
+--[[pod_format="raw",created="2025-07-22 08:22:49",modified="2025-08-04 08:25:09",revision=619]]
 function _gui_init()
 	show_lb = false
 	lb_entries = {}
@@ -176,7 +176,7 @@ function _gui_draw()
 	if show_info then
 		print("O - back to menu", 4, 4)
 		
-		print("On keyboard the O button is the'z' key, and the X button is the 'z' key", 4, 20)
+		print("On keyboard the O button is the'z' key, and the X button is the 'x' key", 4, 20)
 		print("Move around with the left/right/up/down arrows", 4, 32)
 		print("Shoot with the X button", 4, 44)
 		print("Score increases by 10 for eating a dot, 200 for killing a ghost", 4, 56)

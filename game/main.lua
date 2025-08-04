@@ -1,4 +1,4 @@
---[[pod_format="raw",created="2025-07-15 17:18:57",modified="2025-08-02 13:46:40",revision=94]]
+--[[pod_format="raw",created="2025-07-15 17:18:57",modified="2025-08-04 08:24:23",revision=99]]
 -- i copied this entire 1600 line file from the system, to change one line
 include("sys/gui_ed.lua")
 
@@ -8,7 +8,7 @@ include("src/utils.lua")
 include("src/ghosts.lua")
 include("src/dots.lua")
 include("src/gui.lua")
-
+	
 -- putting this here so its not affected by _init()
 game_over = false
 api_url = "http://localhost:3000" -- for lb
@@ -16,7 +16,7 @@ api_url = "http://localhost:3000" -- for lb
 flags = {
 	wall = 0,
 	wall_allow_up = 1, -- so ghosts can exit their box, but nothing can enter
-	no_dots = 2, -- where dots cant spawn
+	no_dots = 2, -- where dots cant spawn (kinda obv duh)
 	ghost = 3,
 	bullet = 4
 }
@@ -40,10 +40,6 @@ end
 
 function _draw()
 	cls()
-	
-	-- refrence lines so i can center shit
-	-- rectfill(0, 135, 480, 135, 8)
-	-- rectfill(240, 0, 240, 270, 8)
 	
 	if (menu) _gui_draw(); return	
 
